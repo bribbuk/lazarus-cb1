@@ -82,10 +82,18 @@
     background: #e6b800;
     border-color: #e6b800;
   }
+  
+  .scale-container {
+    transform: scale(2.0);      /* 1.0 = 100%, 1.2 = 120%, 2.0 = 200% */
+    transform-origin: top left; /* makes scaling natural */
+  }
+
+  
 </style>
 </head>
 
 <body>
+<div class="scale-container">
 
   <p class="small">Secure Transmission ID-CB1 D22250609</p>
 
@@ -101,5 +109,6 @@
     <b>PULL AUDIO PACKET</b>
   </a>
 
+</div>
 </body>
 </html>
