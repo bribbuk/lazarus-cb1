@@ -131,6 +131,38 @@
     animation: crtFlicker 0.15s infinite;
   }
 
+  /* CRT Scanlines */
+.crt::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    rgba(0, 0, 0, 0) 2px
+  );
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+}
+
+
+  /* CRT Vignette Glow */
+.crt::after {
+  content: "";
+  position: absolute;
+  top: -10%; left: -10%; right: -10%; bottom: -10%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  opacity: 0.3;
+}
+
+
   @keyframes crtFlicker {
     0% { opacity: 0.96; }
     50% { opacity: 1; }
