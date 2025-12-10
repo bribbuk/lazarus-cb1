@@ -10,12 +10,12 @@
     color: #ffcc00;
     margin: 0;
     padding: 40px;
-    font-family: "Aharoni", "Franklin Gothic Medium", "Arial Black", sans-serif;
+    font-family: Consolas, "Lucida Console", "Courier New", monospace;
     text-shadow: 0 0 2px #EBFA7A;
   }
 
   h1 {
-    font-family: "Courier New", monospace;
+    font-family: Consolas, "Lucida Console", "Courier New", monospace;
     font-weight: bold;
     color: #ffcc00;
     text-shadow: 0 0 3px #EBFA7A;
@@ -38,31 +38,42 @@
   display: block;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid #ffcc00; /* optional cursor */
-  height: 1.4em; /* stops layout shift */
-  font-family: "Courier New", monospace;
+  height: 1.4em; /* prevents layout shift */
+  width: 32ch;   /* prevents pushing the button */
+  font-family: Consolas, "Lucida Console", "Courier New", monospace;
   font-size: 1.1em;
   text-shadow: 0 0 4px #EBFA7A;
-  width: 32ch; /* prevents pushing the button */
-  animation: typing 6s steps(60, end) infinite, 
-             blink 0.8s step-end infinite;
+
+  /* typing animation + fadeout */
+  animation: typing 6s steps(60, end) infinite;
 }
 
-/* typing effect */
+/* THE NEW, PROPER TERMINAL CURSOR */
+.typeout::after {
+  content: "▉";                 /* block cursor */
+  display: inline-block;
+  margin-left: 4px;
+  color: #ffcc00;
+  text-shadow: 0 0 4px #EBFA7A;
+  animation: cursorBlink 0.8s step-end infinite;
+}
+
+/* typing effect (no deletion) */
 @keyframes typing {
-  0% { width: 0; opacity: 1; }
+  0%  { width: 0;   opacity: 1; }
   40% { width: 100%; opacity: 1; }
   60% { width: 100%; opacity: 1; }
   90% { width: 100%; opacity: 1; }
   95% { width: 100%; opacity: 0; }
-  100% { width: 100%; opacity: 0; }
+  100%{ width: 100%; opacity: 0; }
 }
 
-/* blinking cursor effect */
-@keyframes blink {
-  from { border-color: transparent; }
-  to   { border-color: #ffcc00; }
+/* NEW cursor blink animation */
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
+
   
   
   .button {
@@ -90,13 +101,78 @@
     transform-origin: top left; /* makes scaling natural */
   }
 
+  line-height: 1.1;
+
+  .crt {
+  position: relative;
+  overflow: hidden;
+}
+
+/* faint horizontal scanlines */
+.crt::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    rgba(0, 0, 0, 0.0) 2px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.25;
+}
+
+/* gentle screen glow / vignetting */
+.crt::after {
+  content: "";
+  position: absolute;
+  top: -10%; left: -10%; right: -10%; bottom: -10%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  opacity: 0.3;
+}
+
+  .container {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+  .teku-header {
+  font-family: Consolas, "Lucida Console", "Courier New", monospace;
+  font-size: 0.85em;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.divider {
+  border: none;
+  border-bottom: 1px solid #ffcc00;
+  opacity: 0.3;
+  margin-bottom: 20px;
+}
+
   
 </style>
 </head>
 
 <body>
-<div class="scale-container">
-
+  <div class="crt">
+    <div class="container">
+      <div class="scale-container">
+  
+        <p class="teku-header">UNREGISTERED TEKU SLATE</p>
+  
+        <hr class="divider">
+        
   <p class="small">Secure Transmission ID-CB1 D22250609</p>
 
   <h1>LAZARUS HAS CASSINI'S TREASURE</h1>
@@ -111,6 +187,8 @@
     <b>EXTRACT PACKET</b>
   </a>
 
-</div>
+    </div>
+   </div>
+  </div>
 </body>
 </html>
