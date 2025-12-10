@@ -101,56 +101,6 @@
   .scale-container {
     transform: scale(1.3);
     transform-origin: top center; 
-  }
-
-  .crt {
-  position: relative;
-  overflow: hidden;
-  animation: crtFlicker 0.15s infinite, jitter 0.4s infinite;
-}
-
-  @keyframes crtFlicker {
-  0% { opacity: 0.99; }
-  50% { opacity: 1; }
-  100% { opacity: 0.98; }
-}
-
-@keyframes jitter {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-1px, 0); }
-  40% { transform: translate(2px, 1px); }
-  60% { transform: translate(0, -1px); }
-  80% { transform: translate(-1px, 0); }
-}
-
-/* faint horizontal scanlines */
-.crt::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.03) 0px,
-    rgba(255, 255, 255, 0.03) 1px,
-    rgba(0, 0, 0, 0.0) 2px
-  );
-  mix-blend-mode: overlay;
-  opacity: 0.25;
-}
-
-/* gentle screen glow / vignetting */
-.crt::after {
-  content: "";
-  position: absolute;
-  top: -10%; left: -10%; right: -10%; bottom: -10%;
-  pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
-  opacity: 0.3;
 }
   
   .container {
