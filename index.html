@@ -111,6 +111,20 @@
   animation: jitter 0.4s infinite;
 }
 
+  @keyframes crtFlicker {
+  0% { opacity: 0.99; }
+  50% { opacity: 1; }
+  100% { opacity: 0.98; }
+}
+
+@keyframes jitter {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-1px, 0); }
+  40% { transform: translate(2px, 1px); }
+  60% { transform: translate(0, -1px); }
+  80% { transform: translate(-1px, 0); }
+}
+
 /* faint horizontal scanlines */
 .crt::before {
   content: "";
@@ -139,20 +153,6 @@
     rgba(0, 0, 0, 0.8) 100%
   );
   opacity: 0.3;
-}
-
-@keyframes crtFlicker {
-  0% { opacity: 0.99; }
-  50% { opacity: 1; }
-  100% { opacity: 0.98; }
-}
-
-@keyframes jitter {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-1px, 0); }
-  40% { transform: translate(2px, 1px); }
-  60% { transform: translate(0, -1px); }
-  80% { transform: translate(-1px, 0); }
 }
   
   .container {
