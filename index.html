@@ -137,8 +137,9 @@
   .crt {
     position: relative;
     overflow: hidden;
-    min-height: 120vh; /* extend CRT to full viewport height */
-    width: 120vh;
+    min-height: 100vh; /* extend CRT to full viewport height */
+    height: auto;
+    width: 100:;
     display: block;
     animation: crtFlicker 0.15s infinite;
   }
@@ -148,6 +149,8 @@
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
@@ -165,6 +168,8 @@
   content: "";
   position: absolute;
   top: -10%; left: -10%; right: -10%; bottom: -10%;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   background: radial-gradient(
     circle,
