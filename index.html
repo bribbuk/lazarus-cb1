@@ -185,7 +185,8 @@
     /* overall font slightly bigger but not insane */
     body {
       font-size: 8px;
-      padding: 20px;
+      padding: 0;        /* ← THIS FIXES THE MOBILE BORDER */
+      margin: 0;
     }
 
     /* TEKU header */
@@ -221,10 +222,10 @@
       padding: 16px 24px;
     }
 
-    /* DO NOT scale container on mobile */
+    /* adjust container so text isn't glued to edges */
     .container {
       transform: none;
-      padding: 20px;
+      padding: 20px;     /* internal spacing moved here */
     }
   }
 </style>
