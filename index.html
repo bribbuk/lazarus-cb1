@@ -180,11 +180,59 @@
     100% { opacity: 0.97; }
     }
 
-  
+  .bar {
+  background: #ffcc00;
+  box-shadow: 0 0 6px #EBFA7A;
+  transition: height 0.05s linear;
+}
+
   
 </style>
 </head>
 
+<script>
+let audioStarted = false;
+
+function startPacketPlayback() {
+  const audio = document.getElementById("audioPacket");
+  const bars = document.querySelectorAll(".bar");
+
+  // Prevent creating a new audio context every click
+  if (!audioStarted) {
+    audioStarted = true;
+
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const src = audioContext.createMediaElementSource(audio);
+    const analyser = audioContext.createAnalyser();
+
+    analyser.fftSize = 64; // small = chunky retro bars
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    src.connect(analyser);
+    analyser.connect(audioContext.destination);
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      analyser.getByteFrequencyData(dataArray);
+
+      // Update 5 bars evenly across spectrum
+      for (let i = 0; i < bars.length; i++) {
+        let v = dataArray[i * 2] / 255; // pick representative bands
+        let height = v * 60 + 5;        // min-height of 5px
+        bars[i].style.height = height + "px";
+      }
+    }
+
+    animate();
+  }
+
+  audio.play();
+}
+</script>
+
+  
 <body>
   <div class="scale-container">
     <div class="crt">
@@ -206,10 +254,28 @@
   <div style="height: 100px;"></div>
 
   <p class="typeout">▉ ▉ ▉ Audio Packet Detected </p>
-  
-  <a class="button" href="https://github.com/bribbuk/lazarus-cb1/raw/refs/heads/main/Lazarus%20has%20Cassini's%20Treasure%2009_06_2225.m4a">
-    <b>EXTRACT PACKET</b>
-  </a>
+
+  <a class="button" onclick="startPacketPlayback()">
+  <b>EXTRACT PACKET</b>
+</a>
+
+        <div id="visualizer" style="
+  display: flex;
+  gap: 6px;
+  margin-top: 30px;
+  height: 60px;
+  align-items: flex-end;
+">
+  <div class="bar" style="width: 8px; height: 5px; background:#ffcc00;"></div>
+  <div class="bar" style="width: 8px; height: 12px; background:#ffcc00;"></div>
+  <div class="bar" style="width: 8px; height: 7px; background:#ffcc00;"></div>
+  <div class="bar" style="width: 8px; height: 14px; background:#ffcc00;"></div>
+  <div class="bar" style="width: 8px; height: 9px;  background:#ffcc00;"></div>
+</div>
+        <audio id="audioPacket">
+  <source src="https://github.com/bribbuk/lazarus-cb1/raw/refs/heads/main/Lazarus%20has%20Cassini's%20Treasure%2009_06_2225.m4a" type="audio/mp4">
+</audio>
+
 
     </div>
    </div>
